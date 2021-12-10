@@ -1,8 +1,6 @@
 use std::fs;
 use std::str::FromStr;
 
-extern crate util;
-
 enum Direction {
     Forward(usize),
     Up(usize),
