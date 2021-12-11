@@ -1,8 +1,10 @@
-pub fn convert_vec(strs: Vec<&str>) -> Vec<isize> {
+use std::str::FromStr;
+use std::fmt::Debug;
+
+pub fn convert_vec<T: FromStr>(strs: Vec<&str>) -> Vec<T> where <T as FromStr>::Err: Debug {
     let mut output = Vec::new();
     for s in strs {
-        let n = s.parse().expect("Failed to parse int");
-        output.push(n);
+        output.push(T::from_str(s).expect("Failed to parse item in vector"));
     }
 
     output
