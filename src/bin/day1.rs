@@ -14,25 +14,25 @@ fn main() {
 }
 
 // single measurement
-fn part_a(input: &Vec<isize>) {
+fn part_a(input: &[isize]) {
     let mut last = input[0];
     let mut index = 1;
     let mut larger_count = 0;
 
     while index < input.len() {
         if input[index] > last {
-            larger_count = larger_count + 1;
+            larger_count += 1;
         }
 
         last = input[index];
-        index = index + 1;
+        index += 1;
     }
 
     println!("{} larger measurements", larger_count);
 }
 
 // 3 measurement sliding window
-fn part_b(input: &Vec<isize>) {
+fn part_b(input: &[isize]) {
     let mut last_sum: isize = input[0..3].iter().sum();
     let mut index = 1;
     let mut larger_count = 0;
@@ -40,11 +40,11 @@ fn part_b(input: &Vec<isize>) {
     while index < input.len() - 2 {
         let sum = input[index..index+3].iter().sum();
         if sum > last_sum {
-            larger_count = larger_count + 1
+            larger_count += 1
         }
 
         last_sum = sum;
-        index = index + 1;
+        index += 1;
     }
 
     println!("p2 {} larger measurements", larger_count);

@@ -121,7 +121,7 @@ fn main() {
     part_b(&segments);
 }
 
-fn part_a(input: &Vec<LineSegment>) {
+fn part_a(input: &[LineSegment]) {
     let mut grid = HashMap::new();
     for segment in input {
         // if it's horizontal or vertical
@@ -140,7 +140,7 @@ fn part_a(input: &Vec<LineSegment>) {
     println!("a: found {} intersections", intersections);
 }
 
-fn part_b(input: &Vec<LineSegment>) {
+fn part_b(input: &[LineSegment]) {
     let mut grid = HashMap::new();
     for segment in input {
         // increment a counter for each of the points it passes through

@@ -12,7 +12,7 @@ fn main() {
     part_b(&input);
 }
 
-fn part_a(input: &Vec<&str>) {
+fn part_a(input: &[&str]) {
     let gamma = gamma_rate(input);
     let epsilon = epsilon_rate(input);
 
@@ -24,7 +24,7 @@ fn part_a(input: &Vec<&str>) {
     println!("multiplied: {}", gamma * epsilon);
 }
 
-fn part_b(input: &Vec<&str>) {
+fn part_b(input: &[&str]) {
     let oxygen = o2_rating(input);
     let co2 = co2_rating(input);
 
@@ -37,7 +37,7 @@ fn part_b(input: &Vec<&str>) {
 }
 
 // TODO rewrite to use count_digts_etc
-fn gamma_rate(input: &Vec<&str>) -> String {
+fn gamma_rate(input: &[&str]) -> String {
     // Count ones in each position. If greater than half the # of entries, put it in the gamma rate.
     let digits = input[0].len();
     let entries = input.len();
@@ -46,7 +46,7 @@ fn gamma_rate(input: &Vec<&str>) -> String {
     for i in input {
         for (pos, c) in i.char_indices() {
             if c == '1' {
-                counts[pos] = counts[pos] + 1;
+                counts[pos] += 1;
             }
         }
     }
@@ -64,7 +64,7 @@ fn gamma_rate(input: &Vec<&str>) -> String {
 }
 
 // epsilon rate is inverted gamma rate
-fn epsilon_rate(input: &Vec<&str>) -> String {
+fn epsilon_rate(input: &[&str]) -> String {
     let g_rate = gamma_rate(input);
     let mut e_rate = String::from("");
     for c in g_rate.chars() {
@@ -78,7 +78,7 @@ fn epsilon_rate(input: &Vec<&str>) -> String {
     e_rate
 }
 
-fn o2_rating(input: &Vec<&str>) -> String {
+fn o2_rating(input: &[&str]) -> String {
     let mut bit_position = 0;
     let mut entries = input.to_vec();
 
@@ -104,7 +104,7 @@ fn o2_rating(input: &Vec<&str>) -> String {
     String::from(entries[0])
 }
 
-fn co2_rating(input: &Vec<&str>) -> String {
+fn co2_rating(input: &[&str]) -> String {
     let mut bit_position = 0;
     let mut entries = input.to_vec();
 
@@ -130,7 +130,7 @@ fn co2_rating(input: &Vec<&str>) -> String {
     String::from(entries[0])
 }
 
-fn count_digits_at_position(binary_numbers: &Vec<&str>, index: usize) -> HashMap<char, usize> {
+fn count_digits_at_position(binary_numbers: &[&str], index: usize) -> HashMap<char, usize> {
     let mut counts = HashMap::new();
 
     for n in binary_numbers {

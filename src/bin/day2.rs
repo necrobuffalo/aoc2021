@@ -37,15 +37,15 @@ fn main() {
     part_b(&directions);
 }
 
-fn part_a(input: &Vec<Direction>) {
+fn part_a(input: &[Direction]) {
     let mut horizontal = 0;
     let mut depth = 0;
 
     for instruction in input {
         match instruction {
-            Direction::Forward(n) => horizontal = horizontal + n,
-            Direction::Up(n) => depth = depth - n,
-            Direction::Down(n) => depth = depth + n,
+            Direction::Forward(n) => horizontal += n,
+            Direction::Up(n) => depth -= n,
+            Direction::Down(n) => depth += n,
         }
     }
 
@@ -55,7 +55,7 @@ fn part_a(input: &Vec<Direction>) {
     println!("Multiplied: {}", horizontal * depth);
 }
 
-fn part_b(input: &Vec<Direction>) {
+fn part_b(input: &[Direction]) {
     let mut horizontal = 0;
     let mut depth = 0;
     let mut aim = 0;
@@ -63,11 +63,11 @@ fn part_b(input: &Vec<Direction>) {
     for instruction in input {
         match instruction {
             Direction::Forward(n) => {
-                horizontal = horizontal + n;
-                depth = depth + aim * n;
+                horizontal += n;
+                depth += aim * n;
             },
-            Direction::Up(n) => aim = aim - n,
-            Direction::Down(n) => aim = aim + n,
+            Direction::Up(n) => aim -= n,
+            Direction::Down(n) => aim += n,
         }
     }
 

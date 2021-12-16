@@ -19,19 +19,14 @@ trait BingoBoard {
 impl BingoBoard for BoardMatrix {
     fn has_bingo(&self) -> bool {
         // check across
-        // for row in board {
-        //     if row.into_iter().all(|x| x.marked) {
-        //         return true;
-        //     }
-        // }
-        if self.into_iter().any(|row| row.into_iter().all(|x| x.marked)) {
+        if self.iter().any(|row| row.iter().all(|x| x.marked)) {
             return true;
         }
     
         // check down
         // 0th of each board[*], then 1st of each board[*]...
         for i in 0..5 {
-            if self.into_iter().map(|x| x[i]).all(|x| x.marked) {
+            if self.iter().map(|x| x[i]).all(|x| x.marked) {
                 return true;
             }
         }
@@ -67,7 +62,7 @@ fn main() {
 
     // pull off numbers
     let (numbers, input) = input.split_once("\n").unwrap();
-    let numbers: Vec<&str> = numbers.split(",").collect();
+    let numbers: Vec<&str> = numbers.split(',').collect();
     let numbers = util::convert_vec(numbers);
 
     // init boards with the rest of the input
@@ -75,7 +70,7 @@ fn main() {
     let mut boards: Vec<BoardMatrix> = Vec::new();
     for board in input {
         let mut parsed_board = [[BoardEntry{number: 0, marked: false}; 5]; 5];
-        for (i, row) in board.split("\n").enumerate() {
+        for (i, row) in board.split('\n').enumerate() {
             for (j, col) in row.split_whitespace().enumerate() {
                 parsed_board[i][j].number = str::parse(col).unwrap();
             }
@@ -91,7 +86,7 @@ fn main() {
 }
 
 // find first winning board
-fn part_a(numbers: &Vec<usize>, boards: &mut Vec<BoardMatrix>) {
+fn part_a(numbers: &[usize], boards: &mut Vec<BoardMatrix>) {
     'outer: for n in numbers {
         for board in &mut *boards {
             board.mark(*n);
@@ -104,7 +99,7 @@ fn part_a(numbers: &Vec<usize>, boards: &mut Vec<BoardMatrix>) {
 }
 
 // find last winning board
-fn part_b(numbers: &Vec<usize>, boards: &mut Vec<BoardMatrix>) {
+fn part_b(numbers: &[usize], boards: &mut Vec<BoardMatrix>) {
     let mut bingo_count = 0;
     let total_boards = boards.len();
 
